@@ -1,0 +1,112 @@
+/*
+ * Copyright 2018 Rizky Kharisma (@ngengs)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply from: rootProject.file('gradle-tools/version.gradle')
+apply from: rootProject.file('gradle-tools/keystore.gradle')
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.ngengs.android.app.whatsdirect"
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (variant.name != 'debug') {
+                outputFileName = "${applicationId}-v${versionName}-build.${new Date().format('yyyyMMddhhmmss')}-${variant.name}.apk"
+            } else {
+                outputFileName = "${applicationId}-${variant.name}.apk"
+            }
+        }
+    }
+    signingConfigs {
+        release {
+            if (rootProject.ext.keyExist) {
+                storeFile file(rootProject.ext.keyStoreLocationRelease)
+                storePassword rootProject.ext.keyStorePasswordRelease
+                keyAlias rootProject.ext.keyAliasRelease
+                keyPassword rootProject.ext.keyPasswordRelease
+            }
+        }
+
+        debug {
+            if (rootProject.ext.keyExist) {
+                storeFile file(rootProject.ext.keyStoreLocationDebug)
+                storePassword rootProject.ext.keyStorePasswordDebug
+                keyAlias rootProject.ext.keyAliasDebug
+                keyPassword rootProject.ext.keyPasswordDebug
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            if (rootProject.ext.keyExist) {
+                signingConfig signingConfigs.release
+            }
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
+            proguardFiles fileTree(include: ['*.pro'], dir: 'proguards').asList().toArray()
+        }
+        debug {
+            minifyEnabled false
+            debuggable true
+            versionNameSuffix "-debug"
+            applicationIdSuffix '.development'
+            if (rootProject.ext.keyExist) {
+                signingConfig signingConfigs.debug
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation 'com.android.support:design:27.0.2'
+    implementation 'com.android.support:recyclerview-v7:27.0.2'
+    implementation 'com.android.support:cardview-v7:27.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.jakewharton.timber:timber:4.6.0'
+    implementation('agency.tango.android:material-intro-screen:0.0.5', {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'design'
+    })
+    implementation('com.hbb20:ccp:2.1.4', {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    })
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}

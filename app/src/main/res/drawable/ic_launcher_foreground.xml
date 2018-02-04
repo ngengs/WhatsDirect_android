@@ -1,0 +1,55 @@
+<!--
+  ~ Copyright 2018 Rizky Kharisma (@ngengs)
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="108dp"
+        android:height="108dp"
+        android:viewportWidth="212.51476"
+        android:viewportHeight="212.51476">
+    <group android:translateX="56.257378"
+            android:translateY="56.257378">
+        <path
+            android:pathData="M11.37,76.01l6.97,-21.22l14.89,16.64l14.89,16.64l-21.86,4.57l-21.86,4.58z"
+            android:fillType="evenOdd"
+            android:fillColor="#0C5F55"/>
+        <path
+            android:pathData="M85.45,14.8C76.04,5.39 63.54,0.2 50.22,0.19c-27.45,0 -49.79,22.34 -49.8,49.8c-0,8.78 2.29,17.34 6.65,24.9L0,100.69l26.4,-6.93c7.27,3.97 15.46,6.06 23.8,6.06h0.02c0,0 -0,0 0,0c27.45,0 49.79,-22.34 49.8,-49.8C100.02,36.72 94.85,24.21 85.45,14.8zM50.22,91.42h-0.02c-7.43,-0 -14.71,-2 -21.07,-5.77l-1.51,-0.9l-15.67,4.11l4.18,-15.27l-0.98,-1.57c-4.14,-6.59 -6.33,-14.21 -6.33,-22.03C8.84,27.17 27.4,8.61 50.24,8.61c11.06,0 21.45,4.32 29.26,12.14c7.82,7.82 12.12,18.22 12.11,29.28C91.6,72.85 73.03,91.42 50.22,91.42z"
+            android:fillType="evenOdd"
+            android:fillColor="#FFFFFF"/>
+        <path
+            android:pathData="M50.38,49.55m-41.7,0a41.7,41.7 0,1 1,83.41 0a41.7,41.7 0,1 1,-83.41 0"
+            android:fillType="evenOdd"
+            android:fillColor="#0C5F55"/>
+        <path
+            android:pathData="M36.77,49.55l0,-22.33l19.34,11.17l19.34,11.17l-19.34,11.17l-19.34,11.17z"
+            android:fillType="evenOdd"
+            android:fillColor="#FFFFFF"/>
+        <path
+            android:pathData="M21.72,49.55l0,-22.33l19.34,11.17l19.34,11.17l-19.34,11.17l-19.34,11.17z"
+            android:fillType="evenOdd"
+            android:fillColor="#0C5F55"/>
+        <path
+            android:pathData="M36.77,54.79h6.93v13.09h-6.93z"
+            android:fillType="evenOdd"
+            android:fillColor="#FFFFFF"/>
+    </group>
+</vector>
