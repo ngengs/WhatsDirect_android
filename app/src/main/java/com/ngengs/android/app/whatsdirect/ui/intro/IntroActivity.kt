@@ -23,7 +23,7 @@
 package com.ngengs.android.app.whatsdirect.ui.intro
 
 import agency.tango.materialintroscreen.MaterialIntroActivity
-import agency.tango.materialintroscreen.SlideFragmentBuilder
+import agency.tango.materialintroscreen.fragments.SlideFragmentBuilder
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
@@ -43,7 +43,8 @@ class IntroActivity : MaterialIntroActivity(), IntroContract.View {
     override fun createSlide() {
         Timber.d("createSlide() called")
         // Add slide 1
-        addSlide(SlideFragmentBuilder()
+        addSlide(
+            SlideFragmentBuilder()
                 .backgroundColor(R.color.slideBackground1)
                 .image(R.drawable.ic_launcher_foreground)
                 .buttonsColor(R.color.colorAccent)
@@ -65,8 +66,8 @@ class IntroActivity : MaterialIntroActivity(), IntroContract.View {
                 .build())
     }
 
-    override fun onFinish() {
-        super.onFinish()
+    override fun onLastSlidePassed() {
+        super.onLastSlidePassed()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
