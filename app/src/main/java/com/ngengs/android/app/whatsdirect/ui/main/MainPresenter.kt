@@ -29,6 +29,10 @@ class MainPresenter(view: MainContract.View) : MainContract.Presenter {
     private val mView: MainContract.View = view
     private val phoneNumber: PhoneNumber = PhoneNumber
 
+    init {
+        this.mView.setPresenter(this)
+    }
+
     override fun start() {
         if (mView.permissionGranted()) {
             var countryISO: String?
@@ -71,13 +75,12 @@ class MainPresenter(view: MainContract.View) : MainContract.Presenter {
         val fullNumber: String = phoneNumber.full!!
         if (mView.isValid(fullNumber)) {
             mView.openWhatsApp(fullNumber)
-            mView.completeAction()
         } else {
             mView.phoneNotValid(fullNumber)
         }
     }
 
-    init {
-        this.mView.setPresenter(this)
+    override fun errorOpenWhatsApp(message: String?) {
+        mView.showErrorMessage(message ?: "Something wrong")
     }
 }

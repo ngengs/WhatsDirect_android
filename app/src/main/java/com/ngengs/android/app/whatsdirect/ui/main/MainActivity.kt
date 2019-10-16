@@ -23,6 +23,7 @@
 package com.ngengs.android.app.whatsdirect.ui.main
 
 import android.Manifest
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -81,16 +82,21 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun openWhatsApp(phoneNumber: String) {
         Timber.d("openWhatsApp() called")
-        val url = "whatsapp://send?phone=$phoneNumber"
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(url)
-        startActivity(intent)
-        mPresenter.stop()
+        try {
+            val url = "whatsapp://send?phone=$phoneNumber"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+            mPresenter.stop()
+        } catch (e: ActivityNotFoundException) {
+            Timber.w(e.message)
+            mPresenter.errorOpenWhatsApp(baseContext.getString(R.string.error_not_installed))
+        }
     }
 
     override fun phoneNotValid(phoneNumber: String) {
         Timber.e("phoneNotValid: %s", phoneNumber)
-        Snackbar.make(button, R.string.error_not_valid, Snackbar.LENGTH_SHORT).show()
+        showErrorMessage(baseContext.getString(R.string.error_not_valid))
     }
 
     override fun bindValue() {
@@ -100,10 +106,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun releaseListener() {
         button.setOnClickListener(null)
-    }
-
-    override fun completeAction() {
-        finish()
     }
 
     override fun permissionGranted(): Boolean {
@@ -148,6 +150,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun setCountryISO(countryIso: String) {
         Timber.d("setCountryISO() called")
         countrySelector.setCountryForNameCode(countryIso)
+    }
+
+    override fun showErrorMessage(message: String) {
+        Snackbar.make(root, message, Snackbar.LENGTH_SHORT).show()
     }
 
     companion object {
