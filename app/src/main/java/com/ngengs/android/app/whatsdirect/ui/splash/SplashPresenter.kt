@@ -29,6 +29,10 @@ import kotlinx.coroutines.launch
 class SplashPresenter(view: SplashContract.View) : SplashContract.Presenter {
     private val mView: SplashContract.View = view
 
+    init {
+        mView.setPresenter(this)
+    }
+
     override fun start() {
         GlobalScope.launch {
             delay(500)
@@ -40,9 +44,4 @@ class SplashPresenter(view: SplashContract.View) : SplashContract.Presenter {
 
     override fun stop() {
     }
-
-    init {
-        mView.setPresenter(this)
-    }
-
 }
