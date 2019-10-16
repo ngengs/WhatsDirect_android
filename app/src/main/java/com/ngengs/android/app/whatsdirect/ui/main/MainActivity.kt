@@ -55,11 +55,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private fun initView() {
         Timber.d("initView() called")
-        button.setOnClickListener({
+        button.setOnClickListener {
             mPresenter!!.setCountryCode(countrySelector.selectedCountryCode)
             mPresenter!!.setNumber(phoneNumberEditText.text.toString())
             mPresenter!!.handleClick()
-        })
+        }
     }
 
     override fun onResume() {
