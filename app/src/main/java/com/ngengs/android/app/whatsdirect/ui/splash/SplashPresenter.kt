@@ -22,13 +22,20 @@
 
 package com.ngengs.android.app.whatsdirect.ui.splash
 
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
 class SplashPresenter(view: SplashContract.View) : SplashContract.Presenter {
     private val mView: SplashContract.View = view
 
     override fun start() {
-        val firstTime = mView.isFirstTime()
-        if (firstTime) mView.runIntro()
-        else mView.runApp()
+        GlobalScope.launch {
+            delay(500)
+            val firstTime = mView.isFirstTime()
+            if (firstTime) mView.runIntro()
+            else mView.runApp()
+        }
     }
 
     override fun stop() {

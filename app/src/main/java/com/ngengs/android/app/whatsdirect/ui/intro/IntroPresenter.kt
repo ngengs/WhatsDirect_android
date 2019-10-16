@@ -23,8 +23,11 @@
 package com.ngengs.android.app.whatsdirect.ui.intro
 
 class IntroPresenter(view: IntroContract.View) : IntroContract.Presenter {
-
     private val mView: IntroContract.View = view
+
+    init {
+        mView.setPresenter(this)
+    }
 
     override fun start() {
         mView.createSlide()
@@ -33,7 +36,7 @@ class IntroPresenter(view: IntroContract.View) : IntroContract.Presenter {
     override fun stop() {
     }
 
-    init {
-        mView.setPresenter(this)
+    override fun onFinishIntro() {
+        mView.openNextScreen()
     }
 }

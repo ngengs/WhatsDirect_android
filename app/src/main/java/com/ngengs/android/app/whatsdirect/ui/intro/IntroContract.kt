@@ -27,10 +27,11 @@ import com.ngengs.android.app.whatsdirect.ui.BaseView
 
 interface IntroContract {
     interface Presenter : BasePresenter {
-
+        fun onFinishIntro()
     }
 
     interface View : BaseView<Presenter> {
         fun createSlide()
+        fun openNextScreen()
     }
 }
