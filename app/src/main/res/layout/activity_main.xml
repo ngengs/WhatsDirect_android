@@ -21,7 +21,7 @@
   ~ SOFTWARE.
   -->
 
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -30,12 +30,12 @@
     tools:context="com.ngengs.android.app.whatsdirect.ui.main.MainActivity">
 
     <ScrollView
-        android:id="@+id/scroll_view"
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/card_view"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -48,33 +48,33 @@
                 android:orientation="vertical">
 
                 <com.hbb20.CountryCodePicker
-                    android:id="@+id/country_code_picker"
+                    android:id="@+id/countrySelector"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:ccp_countryPreference="id"
                     app:ccp_showFullName="true"
                     app:ccp_showNameCode="false"/>
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/phone_number_layout"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/phoneNumberLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/phone_number_edit_text"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/phoneNumberEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/phone_number"
                         android:inputType="phone"
                         android:maxLines="1"/>
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
     </ScrollView>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -85,4 +85,4 @@
         app:srcCompat="@drawable/ic_arrow_forward"
         android:layout_gravity="bottom|end"/>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -30,4 +30,5 @@
     <string name="intro_desc_2">This app need phone permission to get your country code</string>
     <string name="intro_title_3">That\'s it</string>
     <string name="intro_desc_3">You can send message to WhatsApp</string>
+    <string name="splash_screen_image">Splash Screen Image</string>
 </resources>

@@ -29,28 +29,20 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
-import android.support.design.widget.TextInputEditText
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import android.telephony.PhoneNumberUtils
 import android.telephony.TelephonyManager
-import com.hbb20.CountryCodePicker
 import com.ngengs.android.app.whatsdirect.R
+import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 import java.util.*
 
-
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-    private var mPresenter: MainContract.Presenter? = null
-    private var mNumberEditText: TextInputEditText? = null
-    private var mCountrySelector: CountryCodePicker? = null
-    private var mButton: FloatingActionButton? = null
-    @Suppress("PrivatePropertyName")
-    private val REQUEST_PERMISSION_PHONE_STATE = 10
+    private lateinit var mPresenter: MainContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,25 +53,21 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private fun initView() {
         Timber.d("initView() called")
-        mNumberEditText = findViewById(R.id.phone_number_edit_text)
-        mCountrySelector = findViewById(R.id.country_code_picker)
-        mButton = findViewById(R.id.button)
-        mButton!!.setOnClickListener({
-            mPresenter!!.setCountryCode(mCountrySelector!!.selectedCountryCode)
-            mPresenter!!.setNumber(mNumberEditText!!.text.toString())
-            mPresenter!!.handleClick()
-        })
+        button.setOnClickListener {
+            mPresenter.setCountryCode(countrySelector.selectedCountryCode)
+            mPresenter.setNumber(phoneNumberEditText.text.toString())
+            mPresenter.handleClick()
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        mPresenter!!.start()
+        mPresenter.start()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mPresenter!!.stop()
-        mPresenter = null
+        mPresenter.stop()
     }
 
     override fun setPresenter(presenter: MainContract.Presenter) {
@@ -97,21 +85,21 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(url)
         startActivity(intent)
-        mPresenter!!.stop()
+        mPresenter.stop()
     }
 
     override fun phoneNotValid(phoneNumber: String) {
         Timber.e("phoneNotValid: %s", phoneNumber)
-        mButton!!.let { Snackbar.make(it, R.string.error_not_valid, Snackbar.LENGTH_SHORT).show() }
+        Snackbar.make(button, R.string.error_not_valid, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun bindValue() {
-        mPresenter!!.setCountryCode(mCountrySelector!!.selectedCountryCode)
-        mPresenter!!.setNumber(mNumberEditText!!.text.toString())
+        mPresenter.setCountryCode(countrySelector.selectedCountryCode)
+        mPresenter.setNumber(phoneNumberEditText.text.toString())
     }
 
     override fun releaseListener() {
-        mButton!!.setOnClickListener(null)
+        button.setOnClickListener(null)
     }
 
     override fun completeAction() {
@@ -135,7 +123,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when (requestCode) {
             REQUEST_PERMISSION_PHONE_STATE -> {
-                mPresenter!!.start()
+                mPresenter.start()
             }
         }
     }
@@ -159,6 +147,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun setCountryISO(countryIso: String) {
         Timber.d("setCountryISO() called")
-        mCountrySelector!!.setCountryForNameCode(countryIso)
+        countrySelector.setCountryForNameCode(countryIso)
+    }
+
+    companion object {
+        private const val REQUEST_PERMISSION_PHONE_STATE = 10
     }
 }
