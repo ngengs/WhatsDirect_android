@@ -30,6 +30,7 @@ interface MainContract {
         fun setCountryCode(countryCode: String)
         fun setNumber(phoneNumber: String)
         fun handleClick()
+        fun errorOpenWhatsApp(message: String?)
     }
 
     interface View : BaseView<Presenter> {
@@ -38,11 +39,11 @@ interface MainContract {
         fun isValid(phoneNumber: String): Boolean
         fun bindValue()
         fun releaseListener()
-        fun completeAction()
         fun permissionGranted(): Boolean
         fun getCountryISOeBySIM(): String?
         fun getCountryISOByNetwork(): String?
         fun getCountryISOByLocale(): String?
         fun setCountryISO(countryIso: String)
+        fun showErrorMessage(message: String)
     }
 }

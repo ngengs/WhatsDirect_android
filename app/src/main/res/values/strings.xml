@@ -24,6 +24,7 @@
     <string name="app_name">WhatsDirect</string>
     <string name="phone_number">Phone Number</string>
     <string name="error_not_valid">Phone number not valid</string>
+    <string name="error_not_installed">Cannot open WhatsApp</string>
     <string name="intro_title_1">@string/app_name</string>
     <string name="intro_desc_1">Send message with WhatsApp without save the number to contact</string>
     <string name="intro_title_2">Phone Permission</string>
