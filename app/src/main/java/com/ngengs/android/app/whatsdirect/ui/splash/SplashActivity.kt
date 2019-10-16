@@ -32,7 +32,7 @@ import com.ngengs.android.app.whatsdirect.ui.main.MainActivity
 
 class SplashActivity : AppCompatActivity(), SplashContract.View {
 
-    var mPresenter: SplashContract.Presenter? = null
+    private lateinit var mPresenter: SplashContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,13 +42,12 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
 
     override fun onResume() {
         super.onResume()
-        mPresenter!!.start()
+        mPresenter.start()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mPresenter!!.stop()
-        mPresenter = null
+        mPresenter.stop()
     }
 
     override fun isFirstTime(): Boolean {

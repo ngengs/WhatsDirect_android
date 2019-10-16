@@ -33,7 +33,7 @@ import timber.log.Timber
 
 class IntroActivity : MaterialIntroActivity(), IntroContract.View {
 
-    var mPresenter: IntroContract.Presenter? = null
+    private lateinit var mPresenter: IntroContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,9 +68,18 @@ class IntroActivity : MaterialIntroActivity(), IntroContract.View {
 
     override fun onLastSlidePassed() {
         super.onLastSlidePassed()
+        mPresenter.onFinishIntro()
+    }
+
+    override fun openNextScreen() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter.stop()
     }
 
     override fun setPresenter(presenter: IntroContract.Presenter) {

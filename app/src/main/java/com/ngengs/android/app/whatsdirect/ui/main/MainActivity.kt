@@ -42,9 +42,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-    private var mPresenter: MainContract.Presenter? = null
-    @Suppress("PrivatePropertyName")
-    private val REQUEST_PERMISSION_PHONE_STATE = 10
+    private lateinit var mPresenter: MainContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,21 +54,20 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private fun initView() {
         Timber.d("initView() called")
         button.setOnClickListener {
-            mPresenter!!.setCountryCode(countrySelector.selectedCountryCode)
-            mPresenter!!.setNumber(phoneNumberEditText.text.toString())
-            mPresenter!!.handleClick()
+            mPresenter.setCountryCode(countrySelector.selectedCountryCode)
+            mPresenter.setNumber(phoneNumberEditText.text.toString())
+            mPresenter.handleClick()
         }
     }
 
     override fun onResume() {
         super.onResume()
-        mPresenter!!.start()
+        mPresenter.start()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mPresenter!!.stop()
-        mPresenter = null
+        mPresenter.stop()
     }
 
     override fun setPresenter(presenter: MainContract.Presenter) {
@@ -88,7 +85,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(url)
         startActivity(intent)
-        mPresenter!!.stop()
+        mPresenter.stop()
     }
 
     override fun phoneNotValid(phoneNumber: String) {
@@ -97,8 +94,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun bindValue() {
-        mPresenter!!.setCountryCode(countrySelector.selectedCountryCode)
-        mPresenter!!.setNumber(phoneNumberEditText.text.toString())
+        mPresenter.setCountryCode(countrySelector.selectedCountryCode)
+        mPresenter.setNumber(phoneNumberEditText.text.toString())
     }
 
     override fun releaseListener() {
@@ -126,7 +123,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when (requestCode) {
             REQUEST_PERMISSION_PHONE_STATE -> {
-                mPresenter!!.start()
+                mPresenter.start()
             }
         }
     }
@@ -151,5 +148,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun setCountryISO(countryIso: String) {
         Timber.d("setCountryISO() called")
         countrySelector.setCountryForNameCode(countryIso)
+    }
+
+    companion object {
+        private const val REQUEST_PERMISSION_PHONE_STATE = 10
     }
 }
